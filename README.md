@@ -1,10 +1,12 @@
 # ka-raph's Advent of Code 2022's solutions
 
-*Only JS for now, might try to add other languages later*
+*Only JS for now, might try to add other languages later.*
+
 
 ## Prerequisites
 
 **Node.js**, any version should do, but the newer the better.
+
 
 ## Usage
 
@@ -23,6 +25,8 @@ node .\day2\index.js
 
 ## Notes
 
-The solutions aren't necessarily the fastes nor the shortest, but I tried to make the code rather concise yet understandable, therefore no funky hacks nor ninja code whatsoever.
+The solutions aren't necessarily the fastest nor the shortest, but I tried to make the code rather concise yet understandable, therefore no funky hacks nor ninja code whatsoever.
+
+> I declare war to gibberish one-liners!
 
 **The goal is to focus on the approach!**
