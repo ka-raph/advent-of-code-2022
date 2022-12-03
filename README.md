@@ -1,6 +1,7 @@
 # ka-raph's Advent of Code 2022's solutions
 
 *Only JS for now, might try to add other languages later.*
+[Advent of Code 2022](https://adventofcode.com/2022)
 
 
 ## Prerequisites
