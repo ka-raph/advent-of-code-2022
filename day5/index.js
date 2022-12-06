@@ -1,9 +1,9 @@
 import puzzleInput from "./puzzleInput.js";
 
 const splittedPuzzleInput = puzzleInput.split('\n\n');                    // Not necessary but avoid going through the whole input twice
-const stackSchema = splittedPuzzleInput[0].split('\n 1');
+const stackSchema = splittedPuzzleInput[0].split('\n 1');                 // Get the stack schema and the columns numbers
 const stacksString = stackSchema[0];
-const stacksAmount = parseInt(stackSchema[1][stackSchema[1].length - 2]);
+const stacksAmount = parseInt(stackSchema[1][stackSchema[1].length - 2]); // Get the columns (this script could be reused with any amount of stacks)
 const instructions = splittedPuzzleInput[1]                               // Return an array of instructions (object) e.g. [{amount: 1, from: 2, to: 3}, {amount: 3, from: 6, to: 4}, ...]
   .split('\n')
   .map(line => {
@@ -18,7 +18,7 @@ const stacks = new Array(stacksAmount + 1).fill(null).map((item) => new Array())
 const stacks2 = JSON.parse(JSON.stringify(stacks));                               // Deep copy so we don't mess up with the original
 
 stacksString.split('\n')
-  .map(line => line.match(/.{1,4}/g))       // Cut every 4th character so we get an array with each item beaing a slot e.g. ['[R] ', '    ', '    ', '[Q] ', '[V] ', '[B] ', '[G] ', '[J] ', '   ']
+  .map(line => line.match(/.{1,4}/g))       // Cut every 4th character so we get an array with each item being a slot e.g. ['[R] ', '    ', '    ', '[Q] ', '[V] ', '[B] ', '[G] ', '[J] ', '   ']
   .forEach(line => {
     for (let i = 0; i < line.length; i++) {
       const char = line[i].charAt(1);       // Character at index 1 is either space or number, but not the "[" or "]"
@@ -44,4 +44,4 @@ instructions.forEach(instruction => {
 const topCrates = stacks.map(stack => stack[stack.length - 1]).join('');    // Just grabbing the last one of each stack and make a string with those
 const topCrates2 = stacks2.map(stack => stack[stack.length - 1]).join('');
 console.log('Part 1:', topCrates); // ZRLJGSCTR
-console.log('Part 2:', topCrates2); // ZRLJGSCTR
+console.log('Part 2:', topCrates2); // PRTTGRFPB
