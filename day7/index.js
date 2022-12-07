@@ -16,8 +16,9 @@ const sizeToRemove = minimumFreeSpace - currentFreeSpace;
 let closestSize = -1;
 
 getClosestInObj(folderStructure['root']);
-
 console.log('Part 2:', closestSize) // 3979145
+
+
 
 // Populates the folderStructure object from the input and adds a "size" key/value pair into each directory's object
 // Don't want to brag but did that even before phase 2 :D
@@ -34,10 +35,9 @@ function getFolderStructure(currentFolder, currentFolderPath, lineIndex) {
   if (line.charAt(0) === '$' && line.slice(2, 4) === 'cd') {                    
     const targetFolderName = line.slice(5);
 
-    // Going one level up
-    if (targetFolderName === '..') {                                            
+    if (targetFolderName === '..') {  // Going one level up                                        
       const dirSize = folder.size;
-      if (dirSize <= maxSize) bigFoldersTotalSize += dirSize;               // Count folder folder if it's below 100 000, files can be counted more than once
+      if (dirSize <= maxSize) bigFoldersTotalSize += dirSize; // Add directory's total size if it's below 100 000, files can be counted more than once
 
       // Update path
       const splittedPath = folderPath.split('/');
@@ -49,30 +49,26 @@ function getFolderStructure(currentFolder, currentFolderPath, lineIndex) {
 
       folder.size += dirSize;
     }
-    // "/" causes issues since this is the character used for path splitting, renaming it
-    else if (targetFolderName === '/') {
+    else if (targetFolderName === '/') {  // "/" causes issues since this is the character used for path splitting, renaming it
       folderStructure['root'] = {size: 0};
       folder = folderStructure['root'];
       folderPath += 'root';
     }
-    // Navigate to a subdirectory
-    else {
+    else {  // Navigate to a subdirectory
       folder = folder[targetFolderName] ?? {size: 0};
       folderPath += `/${targetFolderName}`;
     }
   }
-  // Listed folder
-  else if (line.slice(0, 3) === 'dir') {
+  else if (line.slice(0, 3) === 'dir') { // Listed folder
     folder[line.slice(4)] = {size: 0};
   }
-  // Listed file
-  else if (line.charAt(0) !== '$') {  // avoid `ls` since it has no use in the current function
+  else if (line.charAt(0) !== '$') {  // Listed file & avoid `ls` since it has no use in the current function
     const [fileSize, fileName] = line.split(' ');
     folder[fileName] = parseInt(fileSize);
     folder.size += parseInt(fileSize);
   }
 
-  getFolderStructure(folder, folderPath, lineIndex + 1,); // This is the principle of recursion, the function calls itself with another set of paraeters (else one might end up in infinite recursion/stack overflow)
+  getFolderStructure(folder, folderPath, lineIndex + 1); // Recursion with updated parameters
 }
 
 
