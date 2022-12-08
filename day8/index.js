@@ -8,9 +8,12 @@ let highestScenicScore = 0;
 
 for (let row = 0; row < treeGrid.length; ++row) {
   for (let col = 0; col < treeGrid[row].length; ++col) {
+    // Phase 1
     if (isTreeVisible(row, col)) {
       ++visibleTrees;
     }
+
+    // Phase 2
     const scenicScore = getScenicScore(row, col);
     if (scenicScore > highestScenicScore) highestScenicScore = scenicScore;
   }
@@ -51,7 +54,7 @@ function isTreeVisible(row, col) {
 // We'll create an array for each branch [left, right, top, bottom] of the cross section
 // Each array will be ordered from the tree at given row and column towards the border
 // We can then treat all branches of the cross section the same way:
-// Imagine that we're currently standing on top of tree at given row and column,
+// Imagine that we're currently standing on top of a tree at given row and column,
 // We'll write down on a notebook a list of each tree's height that stands between our current tree and the border of the grid. 
 // I.e. we start with our current tree, then we add the first closest tree, then the second closest...and so on
 function getScenicScore(row, col) {
@@ -74,7 +77,7 @@ function getScenicScoreForSection(sectionArr) {
   // Index 0 is always the tree for which we're getting the score
   for (const [index, tree] of sectionArr.entries()) {
     ++scoreLeft;
-    if (tree >= sectionArr[0] && index > 0) break; // We can't see past this tree because it is higher than the one we're on
+    if (tree >= sectionArr[0] && index > 0) break; // We can't see past this tree because it is higher than the one we're on top of
   };
   return scoreLeft;
 }
